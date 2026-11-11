@@ -1,0 +1,371 @@
+<?xml version="1.0"?>
+<sdf version="1.11">
+  <world name="physics">
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-apply-link-wrench-system" name="gz::sim::systems::ApplyLinkWrench"/>
+    <gravity>0 0 -9.8</gravity>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.55 0.75 0.95 1</background>
+      <shadows>true</shadows>
+      <grid>false</grid>
+    </scene>
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.5 0.5 0.5 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <model name="ground">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>20 20</size></plane>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>20 20</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.6 0.6 0.6 1</ambient>
+            <diffuse>0.6 0.6 0.6 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="broom_ok">
+      <pose>1.5 1.2 0.75 0 0.1 0</pose>
+      <link name="link">
+        <inertial>
+          <mass>0.2</mass>
+          <inertia>
+            <ixx>0.0377</ixx>
+            <iyy>0.0377</iyy>
+            <izz>0.0003</izz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box><size>0.1 0.1 1.5</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.1 0.1 1.5</size></box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.8 0.2 1</ambient>
+            <diffuse>0.2 0.8 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="broom_bad">
+      <pose>1.5 0 0.75 0 0.1 0</pose>
+      <link name="link">
+        <inertial>
+          <mass>0.2</mass>
+        </inertial>
+        <collision name="collision">
+          <geometry>
+            <box><size>0.1 0.1 1.5</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.1 0.1 1.5</size></box>
+          </geometry>
+          <material>
+            <ambient>0.9 0.2 0.2 1</ambient>
+            <diffuse>0.9 0.2 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="broom_auto">
+      <pose>1.5 -1.2 0.75 0 0.1 0</pose>
+      <link name="link">
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>13.33</density>
+          <geometry>
+            <box><size>0.1 0.1 1.5</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.1 0.1 1.5</size></box>
+          </geometry>
+          <material>
+            <ambient>0.2 0.4 1 1</ambient>
+            <diffuse>0.2 0.4 1 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="ramp">
+      <static>true</static>
+      <pose>-0.5 0 0.4 0.3 0 0</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <box><size>1.4 2 0.1</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>1.4 2 0.1</size></box>
+          </geometry>
+          <material>
+            <ambient>0.55 0.45 0.35 1</ambient>
+            <diffuse>0.55 0.45 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="sticky">
+      <pose>-0.2 -0.044 0.543 0.3 0 0</pose>
+      <link name="link">
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.0067</ixx>
+            <iyy>0.0067</iyy>
+            <izz>0.0067</izz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <surface>
+            <friction>
+              <ode>
+                <mu>1.0</mu>
+                <mu2>1.0</mu2>
+              </ode>
+            </friction>
+          </surface>
+          <geometry>
+            <box><size>0.2 0.2 0.2</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.2 0.2 0.2</size></box>
+          </geometry>
+          <material>
+            <ambient>1 0.5 0 1</ambient>
+            <diffuse>1 0.5 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="slippery">
+      <pose>-0.8 -0.044 0.543 0.3 0 0</pose>
+      <link name="link">
+        <inertial>
+          <mass>1.0</mass>
+          <inertia>
+            <ixx>0.0067</ixx>
+            <iyy>0.0067</iyy>
+            <izz>0.0067</izz>
+          </inertia>
+        </inertial>
+        <collision name="collision">
+          <surface>
+            <friction>
+              <ode>
+                <mu>0.1</mu>
+                <mu2>0.1</mu2>
+              </ode>
+            </friction>
+          </surface>
+          <geometry>
+            <box><size>0.2 0.2 0.2</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.2 0.2 0.2</size></box>
+          </geometry>
+          <material>
+            <ambient>0 0.8 0.9 1</ambient>
+            <diffuse>0 0.8 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="pendulum">
+      <pose>-2.5 -2.5 0 0 0 0</pose>
+      <link name="post">
+        <pose>0 0 1.1 0 0 0</pose>
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>1000</density>
+          <geometry>
+            <box><size>0.1 0.1 2.2</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.1 0.1 2.2</size></box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <link name="arm">
+        <pose>0.5 0.1 2.15 0 0 0</pose>
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>400</density>
+          <geometry>
+            <box><size>1 0.05 0.05</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>1 0.05 0.05</size></box>
+          </geometry>
+          <material>
+            <ambient>1 0.85 0 1</ambient>
+            <diffuse>1 0.85 0 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <joint name="weld" type="fixed">
+        <parent>world</parent>
+        <child>post</child>
+      </joint>
+      <joint name="hinge" type="revolute">
+        <parent>post</parent>
+        <child>arm</child>
+        <pose>-0.5 0 0 0 0 0</pose>
+        <axis>
+          <xyz>0 1 0</xyz>
+        </axis>
+      </joint>
+    </model>
+    <model name="door">
+      <pose>2 -2.6 0 0 0 0</pose>
+      <link name="frame">
+        <pose>0 0 1 0 0 0</pose>
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>1000</density>
+          <geometry>
+            <box><size>0.1 0.1 2</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.1 0.1 2</size></box>
+          </geometry>
+          <material>
+            <ambient>0.3 0.3 0.35 1</ambient>
+            <diffuse>0.3 0.3 0.35 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <link name="panel">
+        <pose>0 0.47 1 0 0 0</pose>
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>600</density>
+          <geometry>
+            <box><size>0.04 0.8 1.9</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.04 0.8 1.9</size></box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.4 0.2 1</ambient>
+            <diffuse>0.6 0.4 0.2 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <joint name="weld" type="fixed">
+        <parent>world</parent>
+        <child>frame</child>
+      </joint>
+      <joint name="hinge" type="revolute">
+        <parent>frame</parent>
+        <child>panel</child>
+        <pose>0 -0.42 0 0 0 0</pose>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>1.57</upper>
+          </limit>
+          <dynamics>
+            <damping>5</damping>
+          </dynamics>
+        </axis>
+      </joint>
+    </model>
+    <model name="lift">
+      <pose>3 1.5 0 0 0 0</pose>
+      <link name="rail">
+        <pose>0 0 1.1 0 0 0</pose>
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>1000</density>
+          <geometry>
+            <box><size>0.05 0.05 2.2</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.05 0.05 2.2</size></box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <link name="car">
+        <pose>0.25 0 2 0 0 0</pose>
+        <inertial auto="true"/>
+        <collision name="collision">
+          <density>500</density>
+          <geometry>
+            <box><size>0.4 0.4 0.05</size></box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box><size>0.4 0.4 0.05</size></box>
+          </geometry>
+          <material>
+            <ambient>0.6 0.3 0.9 1</ambient>
+            <diffuse>0.6 0.3 0.9 1</diffuse>
+          </material>
+        </visual>
+      </link>
+      <joint name="weld" type="fixed">
+        <parent>world</parent>
+        <child>rail</child>
+      </joint>
+      <joint name="slide" type="prismatic">
+        <parent>rail</parent>
+        <child>car</child>
+        <axis>
+          <xyz>0 0 1</xyz>
+          <limit>
+            <lower>-1.5</lower>
+            <upper>0</upper>
+          </limit>
+        </axis>
+      </joint>
+    </model>
+  </world>
+</sdf>
