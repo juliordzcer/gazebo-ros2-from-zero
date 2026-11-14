@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:property name="wheel_radius" value="0.1"/>
+  <xacro:property name="wheel_y" value="0.22"/>
+
+  <link name="base_link">
+    <visual>
+      <geometry><box size="0.5 0.35 0.12"/></geometry>
+      <material name="blue"><color rgba="0.2 0.4 0.9 1"/></material>
+    </visual>
+  </link>
+
+  <xacro:macro name="wheel" params="side y">
+    <link name="${side}_wheel">
+      <visual>
+        <origin rpy="1.5708 0 0"/>
+        <geometry><cylinder radius="${wheel_radius}" length="0.05"/></geometry>
+        <material name="black"><color rgba="0.1 0.1 0.1 1"/></material>
+      </visual>
+    </link>
+    <joint name="${side}_wheel_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${side}_wheel"/>
+      <origin xyz="-0.1 ${y} 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:wheel side="left" y="${wheel_y}"/>
+  <xacro:wheel side="right" y="${-wheel_y}"/>
+
+  <link name="caster">
+    <visual>
+      <geometry><sphere radius="0.05"/></geometry>
+      <material name="grey"><color rgba="0.6 0.6 0.6 1"/></material>
+    </visual>
+  </link>
+  <joint name="caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="caster"/>
+    <origin xyz="0.18 0 -0.05"/>
+  </joint>
+
+  <link name="lidar">
+    <visual>
+      <geometry><cylinder radius="0.05" length="0.06"/></geometry>
+      <material name="red"><color rgba="0.9 0.2 0.2 1"/></material>
+    </visual>
+  </link>
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar"/>
+    <origin xyz="0.15 0 0.09"/>
+  </joint>
+</robot>
