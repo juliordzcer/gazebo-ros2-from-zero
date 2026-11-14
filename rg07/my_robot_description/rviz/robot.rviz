@@ -1,0 +1,50 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Class: rviz_default_plugins/Map
+      Name: Map
+      Enabled: true
+      Topic:
+        Value: /map
+        Durability Policy: Transient Local
+    - Class: rviz_default_plugins/Map
+      Name: Global costmap
+      Enabled: true
+      Color Scheme: costmap
+      Alpha: 0.4
+      Topic:
+        Value: /global_costmap/costmap
+    - Class: rviz_default_plugins/Path
+      Name: Plan
+      Enabled: true
+      Color: 25; 255; 0
+      Line Width: 0.05
+      Line Style: Billboards
+      Topic:
+        Value: /plan
+    - Class: rviz_default_plugins/RobotModel
+      Name: RobotModel
+      Enabled: true
+      Description Topic:
+        Value: /robot_description
+    - Class: rviz_default_plugins/LaserScan
+      Name: LaserScan
+      Enabled: true
+      Topic:
+        Value: /scan
+      Size (m): 0.06
+      Color Transformer: FlatColor
+      Color: 255; 40; 40
+  Global Options:
+    Fixed Frame: map
+    Background Color: 48; 48; 48
+  Name: root
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Scale: 80
+      X: 2
+      Y: 2
